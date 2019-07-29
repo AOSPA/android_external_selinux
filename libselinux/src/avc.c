@@ -811,13 +811,7 @@ int avc_has_perm_noaudit(security_id_t ssid,
 	denied = requested & ~(ae->avd.allowed);
 
 	if (!requested || denied) {
-		if (!avc_enforcing ||
-		    (ae->avd.flags & SELINUX_AVD_FLAGS_PERMISSIVE))
-			ae->avd.allowed |= requested;
-		else {
-			errno = EACCES;
-			rc = -1;
-		}
+		ae->avd.allowed |= requested;
 	}
 
       out:
